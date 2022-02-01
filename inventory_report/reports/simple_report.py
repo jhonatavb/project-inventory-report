@@ -1,6 +1,3 @@
-# class SimpleReport:
-    # def __init__(self):
-
 from collections import Counter
 import datetime
 
@@ -41,37 +38,59 @@ mock = [
             "numero_de_serie": "FR38 9203 3060 400T QQ8B HHS0 Q46",
             "instrucoes_de_armazenamento": "velit eu est congue elementum",
         },
+        {
+            "id": 5,
+            "nome_do_produto": "Uricum acidum, Benzoicum acidum",
+            "nome_da_empresa": "Newton Laboratories, Inc.",
+            "data_de_fabricacao": "2019-11-08",
+            "data_de_validade": "2019-11-26",
+            "numero_de_serie": "FR38 9203 3060 400T QQ8B HHS0 Q46",
+            "instrucoes_de_armazenamento": "velit eu est congue elementum",
+        }
     ]
 
+class SimpleReport:
+    def __init__(self, products_list):
+      self.generate = self.generate(products_list)
+      pass
 
-def get_company_with_more_products(products_list):
-  company_names = []
-  company_with_more_repetitinos = ''
-  total = 0
-  for company in products_list:
-    company_names.append(company['nome_da_empresa'])
-  for company in company_names:
-    repetitions = Counter(company_names)[company]
+    def get_company_with_more_products(products_list):
+        company_names = []
+        company_with_more_repetitinos = ''
+        total = 0
+        for company in products_list:
+            company_names.append(company['nome_da_empresa'])
+        for company in company_names:
+            repetitions = Counter(company_names)[company]
 
-    if repetitions > total:
-      company_with_more_repetitinos = company
-      total = total + 1
-  return f'Empresa com maior quantidade de produtos estocados: {company_with_more_repetitinos}'
+            if repetitions > total:
+              company_with_more_repetitinos = company
+              total = total + 1
+        return f'Empresa com maior quantidade de produtos estocados: {company_with_more_repetitinos}'
 
 
-def get_product_with_oldest_fabrication_date(products_list):
-  data = datetime.datetime.now()
-  fabrication_dates = []
-  for date in products_list:
-    fabrication_dates.append(date['data_de_fabricacao'])
-  oldest_date = sorted(fabrication_dates)[0]
-  return f'Data de fabricação mais antiga: {oldest_date}'
+    def get_product_with_oldest_fabrication_date(products_list):
+        fabrication_dates = []
+        for date in products_list:
+            fabrication_dates.append(date['data_de_fabricacao'])
+        oldest_date = sorted(fabrication_dates)[0]
+        return f'Data de fabricação mais antiga: {oldest_date}'
 
-get_product_with_oldest_fabrication_date(mock)
+    def get_product_with_closest_validate_date(products_list):
+        data = datetime.datetime.now()
+        validate_dates = []
+        for date in products_list:
+            if date['data_de_validade'] < str(data):
+              validate_dates.append(date['data_de_validade'])
+        nearest_date = max(validate_dates)
+        return f'Data de validade mais próxima: {nearest_date}'
 
-def generate(products_list):
-  company_with_more_products = get_company_with_more_products(products_list)
-  oldest_fabrication_date = get_product_with_oldest_fabrication_date(products_list)
-  return f'{company_with_more_products}\n{oldest_fabrication_date}'
+    def generate(self, products_list):
+        company_with_more_products = self.get_company_with_more_products(products_list)
+        oldest_fabrication_date = self.get_product_with_oldest_fabrication_date(products_list)
+        nearest_validation_date = self.get_product_with_closest_validate_date(products_list)
+        return f'{oldest_fabrication_date}\n{nearest_validation_date}\n{company_with_more_products}'
         
-print(generate(mock))
+# print(generate(mock))
+
+print(SimpleReport.generate(mock))
