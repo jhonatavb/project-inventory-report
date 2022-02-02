@@ -15,6 +15,6 @@ class CompleteReport(SimpleReport):
         return response
 
     def generate(products_list):
-        simple = SimpleReport.generate(products_list)
+        simple_report = SimpleReport.generate(products_list)
         stocks = CompleteReport.get_products_stocked_by_company(products_list)
-        return f"{simple}\n" f"{stocks}"
+        return f"{simple_report}\n" f"{stocks}"
