@@ -3,6 +3,7 @@ import json
 from inventory_report.reports.simple_report import SimpleReport
 from inventory_report.reports.complete_report import CompleteReport
 
+
 class Inventory:
     # ref https://stackoverflow.com/a/51889958
     @classmethod
@@ -13,7 +14,7 @@ class Inventory:
             for row in reader:
                 csv_list.append(row)
 
-            return csv_list 
+            return csv_list
         if path.endswith(".json"):
             return json.load(file_type)
 
