@@ -5,7 +5,7 @@ from inventory_report.reports.complete_report import CompleteReport
 
 
 class Inventory:
-    #ref https://stackoverflow.com/a/51889958
+    # ref https://stackoverflow.com/a/51889958
     @classmethod
     def read_file_type(cls, path, file_type):
         if path.endswith(".csv"):
@@ -20,10 +20,10 @@ class Inventory:
             product_list = cls.read_file_type(path, file_type)
 
             if report_type == "simples":
-               type_report_return = SimpleReport.generate(product_list)
+                type_report_return = SimpleReport.generate(product_list)
 
             if report_type == "completo":
-               type_report_return = CompleteReport.generate(product_list)
+                type_report_return = CompleteReport.generate(product_list)
 
             if report_type != "simples" or report_type != "completo":
                 type_report_return = "Invalid format"
