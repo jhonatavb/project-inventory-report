@@ -25,11 +25,12 @@ class Inventory:
 
             if report_type == "simples":
                 type_report_return = SimpleReport.generate(product_list)
+                return type_report_return
 
             if report_type == "completo":
                 type_report_return = CompleteReport.generate(product_list)
+                return type_report_return
 
             if report_type != "simples" or report_type != "completo":
                 type_report_return = "Invalid format"
-
-        return type_report_return
+                return type_report_return
