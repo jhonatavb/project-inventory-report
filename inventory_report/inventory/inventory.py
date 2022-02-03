@@ -6,7 +6,7 @@ from inventory_report.reports.complete_report import CompleteReport
 
 
 class Inventory:
-    # ref https://stackoverflow.com/a/51889958
+    #ref https://stackoverflow.com/a/51889958
     @classmethod
     def parse_list(cls, file_type):
         my_list = []
