@@ -8,6 +8,14 @@ from inventory_report.reports.complete_report import CompleteReport
 class Inventory:
     # ref https://stackoverflow.com/a/51889958
     @classmethod
+    def parse_list(cls, file_type):
+        my_list = []
+        for row in file_type["dataset"]["record"]:
+            my_list.append(row)
+
+        return my_list
+
+    @classmethod
     def read_file_type(cls, path, file_type):
         if path.endswith(".csv"):
             reader = csv.DictReader(file_type, delimiter=",", quotechar='"')
@@ -16,18 +24,16 @@ class Inventory:
                 csv_list.append(row)
 
             return csv_list
+
         if path.endswith(".json"):
             return json.load(file_type)
 
         if path.endswith(".xml"):
             my_xml = file_type.read()
             my_dict_xml = xmltodict.parse(my_xml)
+            my_list = cls.parse_list(my_dict_xml)
 
-            my_list_xml = []
-            for row in my_dict_xml["dataset"]["record"]:
-               my_list_xml.append(row) 
-
-            return my_list_xml
+            return my_list
 
     @classmethod
     def import_data(cls, path, report_type):
