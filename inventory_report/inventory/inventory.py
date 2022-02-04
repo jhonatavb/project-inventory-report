@@ -30,11 +30,11 @@ class Inventory:
                 return json.load(data)
 
             if path.endswith(".xml"):
-                my_xml = data.read()
-                my_dict_xml = xmltodict.parse(my_xml)
-                my_list = cls.parse_list(path, my_dict_xml["dataset"]["record"])
+                reader = data.read()
+                xml_dict = xmltodict.parse(reader)
+                xml_list = cls.parse_list(path, xml_dict["dataset"]["record"])
 
-                return my_list
+                return xml_list
 
     @classmethod
     def import_data(cls, path, report_type):
