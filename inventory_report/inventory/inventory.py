@@ -10,12 +10,6 @@ class Inventory:
     @classmethod
     def parse_list(cls, path, data):
         my_list = []
-        if path.endswith(".xml"):
-            for row in data["dataset"]["record"]:
-                my_list.append(row)
-
-            return my_list
-
         for row in data:
             my_list.append(row)
 
@@ -38,7 +32,7 @@ class Inventory:
             if path.endswith(".xml"):
                 my_xml = data.read()
                 my_dict_xml = xmltodict.parse(my_xml)
-                my_list = cls.parse_list(path, my_dict_xml)
+                my_list = cls.parse_list(path, my_dict_xml["dataset"]["record"])
 
                 return my_list
 
